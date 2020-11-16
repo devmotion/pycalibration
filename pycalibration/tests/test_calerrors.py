@@ -47,7 +47,7 @@ def test_biasedskce():
     skce = calerrors.BiasedSKCE(
         calerrors.transform(calerrors.ExponentialKernel(), 0.1),
         calerrors.WhiteKernel())
-    rng = np.random.default_rng()
+    rng = np.random.default_rng(1234)
 
     for nclasses in (2, 10, 100):
         estimates = []
@@ -79,7 +79,7 @@ def test_unbiasedskce():
     skce = calerrors.UnbiasedSKCE(
         calerrors.transform(calerrors.ExponentialKernel(), 0.1),
         calerrors.WhiteKernel())
-    rng = np.random.default_rng()
+    rng = np.random.default_rng(1234)
 
     for nclasses in (2, 10, 100):
         estimates = []
@@ -131,7 +131,7 @@ def test_blockunbiasedskce():
     skce = calerrors.BlockUnbiasedSKCE(
         calerrors.transform(calerrors.ExponentialKernel(), 0.1),
         calerrors.WhiteKernel())
-    rng = np.random.default_rng()
+    rng = np.random.default_rng(1234)
 
     for nclasses in (2, 10, 100):
         estimates = []
