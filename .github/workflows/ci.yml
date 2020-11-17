@@ -52,8 +52,8 @@ jobs:
       - name: Set PYTHON and PYTHONPATH environment variable (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          echo "PYTHON=${env:GITHUB_WORKSPACE}\.tox\py\scripts\python.exe" >> ${env:GITHUB_ENV}
-          echo "PYTHONPATH=${env:GITHUB_WORKSPACE}\.tox\py\lib\site-packages" >> ${env:GITHUB_ENV}
+          echo "PYTHON=${env:GITHUB_WORKSPACE}/.tox/py/scripts/python.exe" >> ${env:GITHUB_ENV}
+          echo "PYTHONPATH=${env:GITHUB_WORKSPACE}/.tox/py/lib/site-packages" >> ${env:GITHUB_ENV}
       - name: Set PYTHON environment variable (Linux & MacOS)
         if: matrix.os != 'windows-latest'
         run: echo "PYTHON=${GITHUB_WORKSPACE}/.tox/py/bin/python" >> ${GITHUB_ENV}
