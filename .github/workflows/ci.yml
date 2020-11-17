@@ -25,12 +25,6 @@ jobs:
           - macOS-latest
         arch:
           - x64
-          - x86
-        exclude:
-          - os: ubuntu-latest
-            arch: x86
-          - os: macOS-latest
-            arch: x86
     steps:
       - uses: actions/checkout@v1.0.0
       - name: "Set up Julia"
