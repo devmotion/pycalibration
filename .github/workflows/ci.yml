@@ -38,6 +38,16 @@ jobs:
         with:
           version: ${{ matrix.julia-version }}
           arch: ${{ matrix.arch }}
+      - uses: actions/cache@v1
+        env:
+          cache-name: cache-artifacts
+        with:
+          path: ~/.julia/artifacts
+          key: ${{ runner.os }}-test-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -54,4 +64,6 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: echo "PYTHON=${GITHUB_WORKSPACE}/.tox/py/bin/python" >> ${GITHUB_ENV}
       - name: Test with tox
-        run: tox -e py
+        run: |
+          echo ${{ env.PYTHON }}
+          tox -e py
