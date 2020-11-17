@@ -55,5 +55,5 @@ jobs:
           echo ${{ env.PYTHONPATH }}
           tox -e py
         env:
-          PYTHON: ${{ env.GITHUB_WORKSPACE }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
-          PYTHONPATH: ${{ env.GITHUB_WORKSPACE }}/.tox/py/lib/site-packages
+          PYTHON: ${{ github.workspace }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
+          PYTHONPATH: ${{ github.workspace }}/.tox/py/lib/site-packages
