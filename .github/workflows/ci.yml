@@ -49,11 +49,11 @@ jobs:
           python -m pip install --upgrade tox
       - name: Set PYTHON environment variable (Windows)
         if: matrix.os == 'windows-latest'
-        run: echo "PYTHON=$GITHUB_WORKSPACE\\.tox\\py\\scripts\\python.exe" >> $GITHUB_ENV
+        run: echo "PYTHON=${env:GITHUB_WORKSPACE}\\.tox\\py\\scripts\\python.exe" >> ${env:GITHUB_ENV}
       - name: Set PYTHON environment variable (Linux & MacOS)
         if: matrix.os != 'windows-latest'
-        run: echo "PYTHON=$GITHUB_WORKSPACE/.tox/py/bin/python" >> $GITHUB_ENV
+        run: echo "PYTHON=${GITHUB_WORKSPACE}/.tox/py/bin/python" >> ${GITHUB_ENV}
       - name: Test with tox
         run: |
-          echo $PYTHON
+          echo ${env:PYTHON}
           tox -e py
