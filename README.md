@@ -30,3 +30,27 @@ required by `pycalibration`:
 >>> import pycalibration
 >>> pycalibration.install()
 ```
+
+## Usage
+
+Import and setup
+
+- calibration errors for classification models with
+  ```pycon
+  >>> from pycalibration import calerrors
+  ```
+- additional support for general predictive probabilistic models with
+  ```pycon
+  >>> from pycalibration import calerrorsdists
+  ```
+- statistical hypothesis tests for calibration with
+  ```pycon
+  >>> from pycalibration import caltests
+  ```
+
+You can then do the same as would be done in Julia, except you have to add
+`calerrors.`, `calerrorsdists.`, or `caltests.` in front for functionality
+from CalibrationErrors.jl, CalibrationErrorsDistributions.jl, or
+CalibrationTests.jl, respectively. Most of the commands will work without
+any modification. Thus the documentaton of the Julia packages are the main
+in-depth documentation for this package.
