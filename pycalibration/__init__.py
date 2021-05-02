@@ -1,17 +1,10 @@
-import subprocess
+from julia import Main
+import os
 
 
 def install():
     """
-    Install and load Julia packages required by pycalibration.
+    Install Julia packages required by pycalibration.
     """
-    script = """import Pkg;
-    Pkg.add("CalibrationErrors");
-    Pkg.add("CalibrationErrorsDistributions");
-    Pkg.add("CalibrationTests");
-    Pkg.add("PyCall");
-    using CalibrationErrors;
-    using CalibrationErrorsDistributions;
-    using CalibrationTests;
-    using PyCall;"""
-    subprocess.check_call(['julia', '-e', script])
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    Main.include(os.path.join(script_dir, "install.jl"))

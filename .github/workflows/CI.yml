@@ -3,7 +3,7 @@ name: Python test
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:
@@ -17,12 +17,30 @@ jobs:
         python-version:
           - 3.7
           - 3.8
+          - 3.9
         os:
           - ubuntu-latest
           - windows-latest
           - macOS-latest
         arch:
           - x64
+        # Segfault on MacOS with Julia 1.6: https://github.com/JuliaLang/julia/issues/40246
+        exclude:
+          - julia-version: '1'
+            os: macOS-latest
+        include:
+          - julia-version: '1.5'
+            python-version: '3.7'
+            os: macOS-latest
+            arch: x64
+          - julia-version: '1.5'
+            python-version: '3.8'
+            os: macOS-latest
+            arch: x64
+          - julia-version: '1.5'
+            python-version: '3.9'
+            os: macOS-latest
+            arch: x64
     steps:
       - uses: actions/checkout@v1.0.0
       - name: "Set up Julia"

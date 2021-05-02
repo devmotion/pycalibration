@@ -1,4 +1,8 @@
+from julia import Main, CalibrationErrorsDistributions
 import sys
-from julia import CalibrationErrors
+import os
 
-sys.modules[__name__] = CalibrationErrors
+script_dir = os.path.dirname(os.path.realpath(__file__))
+Main.include(os.path.join(script_dir, "setup.jl"))
+
+sys.modules[__name__] = CalibrationErrorsDistributions
