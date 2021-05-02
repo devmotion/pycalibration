@@ -44,6 +44,12 @@ When `pyjulia` is configured correctly, you can install the Julia packages requi
 >>> pycalibration.install()
 ```
 
+### Crash on MacOS with Julia 1.6
+
+Due to a [problem in Julia 1.6](https://github.com/JuliaLang/julia/issues/40246), `pyjulia`
+and `pycalibration` crash on MacOS with this Julia version. Please use Julia 1.5 on MacOS
+until this issue is fixed.
+
 ### Custom Julia environment
 
 With the default settings, `pyjulia` and `pycalibration` install all Julia dependencies
