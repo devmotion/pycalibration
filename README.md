@@ -159,7 +159,7 @@ to matrices automatically.
 ```pycon
 >>> predictions = [[0.1, 0.8, 0.1], [0.2, 0.5, 0.3]]
 >>> outcomes = [2, 3]
->>> skce(predictions, outcomes)
+>>> skce(ce.RowVecs(predictions), outcomes)
 -0.10317943453412069
 ```
 
