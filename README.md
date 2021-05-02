@@ -77,6 +77,14 @@ CalibrationTests.jl, respectively. Most of the commands will work without
 any modification. Thus the documentation of the Julia packages are the main
 in-depth documentation for this package.
 
+### Valid identifiers
+
+Not all valid Julia identifiers are valid Python identifiers. This is an inherent
+limitation of [Python and `pyjulia`](https://pyjulia.readthedocs.io/en/latest/limitations.html#mismatch-in-valid-set-of-identifiers). In particular, it is a common idiom in Julia to
+append `!` to functions that mutate their arguments but it is not possible to use
+`!` in function names in Python. `pyjulia` renames these functions by substituting
+`!` with `_b`, e.g., you can call the Julia function `copy!` with `copy_b` in Python.
+
 ### Calibration errors
 
 Let us estimate the squared kernel calibration error (SKCE) with the tensor
