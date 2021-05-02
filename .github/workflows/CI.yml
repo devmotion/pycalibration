@@ -27,17 +27,6 @@ jobs:
         # Segfault on MacOS with Julia 1.6: https://github.com/JuliaLang/julia/issues/40246
         exclude:
           - julia-version: '1'
-            python-version: '3.7'
-            os: macOS-latest
-            arch: x64
-          - julia-version: '1'
-            python-version: '3.8'
-            os: macOS-latest
-            arch: x64
-          - julia-version: '1'
-            python-version: '3.9'
-            os: macOS-latest
-            arch: x64
             os: macOS-latest
         include:
           - julia-version: '1.5'
