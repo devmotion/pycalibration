@@ -29,6 +29,7 @@ setup(name='pycalibration',
       license='MIT',
       packages=['pycalibration', 'pycalibration.tests'],
       data_files=[],
+      python_requires='>=3.6',
       install_requires=['julia>=0.2'],
       include_package_data=True,
       tests_require=['tox'],)
