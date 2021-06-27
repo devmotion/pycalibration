@@ -2,7 +2,7 @@ using Pkg: Pkg
 
 Pkg.add([
     Pkg.PackageSpec(;
-        name="KernelFunctions", uuid="ec8451be-7e33-11e9-00cf-bbf324bd1392", version="0.9"
+        name="KernelFunctions", uuid="ec8451be-7e33-11e9-00cf-bbf324bd1392", version="0.10"
     ),
     Pkg.PackageSpec(;
         name="CalibrationErrorsDistributions",
