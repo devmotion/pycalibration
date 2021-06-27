@@ -223,7 +223,7 @@ that a model is calibrated, based on a set of predictions and outcomes:
 >>> rng = np.random.default_rng(1234)
 >>> predictions = rng.dirichlet((3, 2, 5), 100)
 >>> outcomes = rng.integers(low=1, high=4, size=100)
->>> kernel = ct.tensor(ct.TVExponentialKernel(), ct.WhiteKernel())
+>>> kernel = ct.tensor(ct.ExponentialKernel(metric=ct.TotalVariation()), ct.WhiteKernel())
 >>> test = ct.AsymptoticSKCETest(kernel, predictions, outcomes)
 >>> print(test)
 <PyCall.jlwrap Asymptotic SKCE test
