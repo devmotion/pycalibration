@@ -7,13 +7,11 @@ CalibrationErrorsDistributions.jl, and CalibrationTests.jl.
 [![Dev](https://img.shields.io/badge/Julia%20docs-dev-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/dev)
 [![Status](https://github.com/devmotion/pycalibration/workflows/CI/badge.svg?branch=main)](https://github.com/devmotion/pycalibration/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationErrors.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationErrors.jl/CI/main?label=CalibrationErrors.jl)](https://github.com/devmotion/CalibrationErrors.jl/actions?query=workflow%3ACI+branch%3Amain)
-[![CalibrationErrorsDistributions.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationErrorsDistributions.jl/CI/main?label=CalibrationErrorsDistributions.jl)](https://github.com/devmotion/CalibrationErrorsDistributions.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationTests.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationTests.jl/CI/main?label=CalibrationTests.jl)](https://github.com/devmotion/CalibrationTests.jl/actions?query=workflow%3ACI+branch%3Amain)
 
 pycalibration is a package for estimating calibration of probabilistic models in Python.
-It uses [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl),
-[CalibrationErrorsDistributions.jl](https://github.com/devmotion/CalibrationErrorsDistributions.jl),
-and [CalibrationTests.jl](https://github.com/devmotion/CalibrationTests.jl) for its
+It uses [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl) and
+[CalibrationTests.jl](https://github.com/devmotion/CalibrationTests.jl) for its
 computations. As such, the package allows the estimation of calibration errors (ECE and
 SKCE) and statistical testing of the null hypothesis that a model is calibrated.
 
@@ -102,7 +100,7 @@ from a set of predictions and corresponding observed outcomes.
 
 ```pycon
 >>> from pycalibration import calerrors as ce
->>> skce = ce.UnbiasedSKCE(ce.tensor(ce.ExponentialKernel(), ce.WhiteKernel()))
+>>> skce = ce.SKCE(ce.tensor(ce.ExponentialKernel(), ce.WhiteKernel()))
 ```
 
 Other estimators of the SKCE and estimators of other calibration errors such
@@ -202,7 +200,7 @@ where `p = N(μ, σ)` and `p̃ = N(μ̃, σ̃)`.
 >>> random.seed(1234)
 >>> predictions = [ce.Normal(random.gauss(0, 1), random.random()) for _ in range(100)]
 >>> outcomes = [random.gauss(0, 1) for _ in range(100)]
->>> skce = ce.UnbiasedSKCE(ce.tensor(ce.WassersteinExponentialKernel(), ce.SqExponentialKernel()))
+>>> skce = ce.SKCE(ce.tensor(ce.WassersteinExponentialKernel(), ce.SqExponentialKernel()))
 >>> skce(predictions, outcomes)
 0.02203618235964146
 ```

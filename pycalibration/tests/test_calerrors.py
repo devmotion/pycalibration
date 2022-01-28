@@ -31,7 +31,7 @@ def test_biasedskce():
     # binary example
 
     # categorical distributions (list of lists is converted to Matrix!)
-    skce = ce.BiasedSKCE(ce.SqExponentialKernel(), ce.WhiteKernel())
+    skce = ce.SKCE(ce.tensor(ce.SqExponentialKernel(), ce.WhiteKernel()), unbiased=False)
     for predictions in (ce.RowVecs([[1, 0], [0, 1]]), ce.RowVecs(np.eye(2))):
         assert skce(predictions, [1, 2]) == pytest.approx(0.0)
         assert skce(predictions, [1, 1]) == pytest.approx(0.5)
@@ -39,17 +39,19 @@ def test_biasedskce():
         assert skce(predictions, [2, 2]) == pytest.approx(0.5)
 
     # probabilities
-    skce = ce.BiasedSKCE(ce.compose(ce.SqExponentialKernel(
-    ), ce.ScaleTransform(math.sqrt(2))), ce.WhiteKernel())
+    skce = ce.SKCE(ce.tensor(ce.compose(ce.SqExponentialKernel(), ce.ScaleTransform(math.sqrt(2))), ce.WhiteKernel()), unbiased=False)
     assert skce([1, 0], [True, False]) == pytest.approx(0.0)
     assert skce([1, 0], [True, True]) == pytest.approx(0.5)
     assert skce([1, 0], [False, True]) == pytest.approx(1 - math.exp(-1))
     assert skce([1, 0], [False, False]) == pytest.approx(0.5)
 
     # multi-dimensional data
-    skce = ce.BiasedSKCE(
-        ce.compose(ce.ExponentialKernel(), ce.ScaleTransform(0.1)),
-        ce.WhiteKernel()
+    skce = ce.SKCE(
+        ce.tensor(
+            ce.compose(ce.ExponentialKernel(), ce.ScaleTransform(0.1)),
+            ce.WhiteKernel()
+        ),
+        unbiased=False
     )
     rng = np.random.default_rng(1234)
 
@@ -68,9 +70,9 @@ def test_unbiasedskce():
     # binary example
 
     # categorical distributions (list of lists is converted to Matrix!)
-    skce = ce.UnbiasedSKCE(
-        ce.SqExponentialKernel(),
-        ce.WhiteKernel())
+    skce = ce.SKCE(
+        ce.tensor(ce.SqExponentialKernel(), ce.WhiteKernel()),
+    )
     for predictions in (ce.RowVecs([[1, 0], [0, 1]]), ce.RowVecs(np.eye(2))):
         assert skce(predictions, [1, 2]) == pytest.approx(0.0)
         assert skce(predictions, [1, 1]) == pytest.approx(0.0)
@@ -78,17 +80,24 @@ def test_unbiasedskce():
         assert skce(predictions, [2, 2]) == pytest.approx(0.0)
 
     # probabilities
-    skce = ce.UnbiasedSKCE(ce.compose(ce.SqExponentialKernel(
-    ), ce.ScaleTransform(math.sqrt(2))), ce.WhiteKernel())
+    skce = ce.SKCE(
+        ce.tensor(
+            ce.compose(ce.SqExponentialKernel(), ce.ScaleTransform(math.sqrt(2))),
+            ce.WhiteKernel()
+        )
+    )
     assert skce([1, 0], [True, False]) == pytest.approx(0.0)
     assert skce([1, 0], [True, True]) == pytest.approx(0.0)
     assert skce([1, 0], [False, True]) == pytest.approx(- 2 * math.exp(-1))
     assert skce([1, 0], [False, False]) == pytest.approx(0.0)
 
     # average for multi-dimensional data
-    skce = ce.UnbiasedSKCE(
-        ce.compose(ce.ExponentialKernel(), ce.ScaleTransform(0.1)),
-        ce.WhiteKernel())
+    skce = ce.SKCE(
+        ce.tensor(
+            ce.compose(ce.ExponentialKernel(), ce.ScaleTransform(0.1)),
+            ce.WhiteKernel()
+        )
+    )
     rng = np.random.default_rng(1234)
 
     for nclasses in (2, 10, 100):
@@ -104,9 +113,10 @@ def test_unbiasedskce():
 
 def test_blockunbiasedskce():
     # blocks of two samples
-    skce = ce.BlockUnbiasedSKCE(
-        ce.SqExponentialKernel(),
-        ce.WhiteKernel())
+    skce = ce.SKCE(
+        ce.tensor(ce.SqExponentialKernel(), ce.WhiteKernel()),
+        blocksize=2
+    )
 
     # categorical distributions (list of lists is converted to Matrix!)
     for predictions in (ce.RowVecs([[1, 0], [0, 1]]), ce.RowVecs(np.eye(2))):
@@ -124,9 +134,15 @@ def test_blockunbiasedskce():
     assert skce(predictions, np.tile([2, 2], 10)) == pytest.approx(0.0)
 
     # probabilities
-    skce = ce.BlockUnbiasedSKCE(ce.compose(
-        ce.SqExponentialKernel(), ce.ScaleTransform(math.sqrt(2))),
-        ce.WhiteKernel())
+    skce = ce.SKCE(
+        ce.tensor(
+            ce.compose(
+                ce.SqExponentialKernel(), ce.ScaleTransform(math.sqrt(2)),
+            ),
+            ce.WhiteKernel()
+        ),
+        blocksize=2
+    )
     assert skce([1, 0], [True, True]) == pytest.approx(0.0)
     assert skce([1, 0], [True, False]) == pytest.approx(0.0)
     assert skce([1, 0], [False, True]) == pytest.approx(- 2 * math.exp(-1))
@@ -141,9 +157,13 @@ def test_blockunbiasedskce():
     assert skce(predictions, np.tile([False, False], 10)) == pytest.approx(0.0)
 
     # average for multi-dimensional data
-    skce = ce.BlockUnbiasedSKCE(
-        ce.compose(ce.ExponentialKernel(), ce.ScaleTransform(0.1)),
-        ce.WhiteKernel())
+    skce = ce.SKCE(
+        ce.tensor(
+            ce.compose(ce.ExponentialKernel(), ce.ScaleTransform(0.1)),
+            ce.WhiteKernel()
+        ),
+        blocksize=2,
+    )
     rng = np.random.default_rng(1234)
 
     for nclasses in (2, 10, 100):
