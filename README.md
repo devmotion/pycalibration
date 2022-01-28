@@ -1,7 +1,6 @@
 # pycalibration
 
-Estimation and hypothesis tests of calibration in Python using CalibrationErrors.jl,
-CalibrationErrorsDistributions.jl, and CalibrationTests.jl.
+Estimation and hypothesis tests of calibration in Python using CalibrationErrors.jl and CalibrationTests.jl.
 
 [![Stable](https://img.shields.io/badge/Julia%20docs-stable-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/stable)
 [![Dev](https://img.shields.io/badge/Julia%20docs-dev-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/dev)
@@ -76,8 +75,8 @@ Import and setup
 
 You can then do the same as would be done in Julia, except you have to add
 `ce.` or `ct.` in front for functionality
-from CalibrationErrors.jl and CalibrationErrorsDistributions.jl or
-CalibrationTests.jl, respectively. Most of the commands will work without
+from CalibrationErrors.jl or CalibrationTests.jl, respectively.
+Most of the commands will work without
 any modification. Thus the documentation of the Julia packages are the main
 in-depth documentation for this package.
 
