@@ -11,7 +11,7 @@ def test_consistency():
 
     kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
                                   ct.ScaleTransform(3)), ct.WhiteKernel())
-    estimators = [ct.BiasedSKCE(kernel), ct.UnbiasedSKCE(kernel)]
+    estimators = [ct.SKCE(kernel), ct.SKCE(kernel, unbiased=False)]
 
     for estimator in estimators:
         test = ct.ConsistencyTest(estimator, ct.RowVecs(
@@ -33,8 +33,8 @@ def test_distributionfree():
 
     kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
                                   ct.ScaleTransform(3)), ct.WhiteKernel())
-    estimators = [ct.BiasedSKCE(kernel), ct.UnbiasedSKCE(
-        kernel), ct.BlockUnbiasedSKCE(kernel, 2)]
+    estimators = [ct.SKCE(kernel, unbiased=False), ct.SKCE(
+        kernel), ct.SKCE(kernel, blocksize=2)]
 
     for i, estimator in enumerate(estimators):
         test = ct.DistributionFreeSKCETest(estimator, ct.RowVecs(
