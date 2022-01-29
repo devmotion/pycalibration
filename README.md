@@ -199,7 +199,7 @@ where `p = N(μ, σ)` and `p̃ = N(μ̃, σ̃)`.
 >>> random.seed(1234)
 >>> predictions = [ce.Normal(random.gauss(0, 1), random.random()) for _ in range(100)]
 >>> outcomes = [random.gauss(0, 1) for _ in range(100)]
->>> skce = ce.SKCE(ce.tensor(ce.WassersteinExponentialKernel(), ce.SqExponentialKernel()))
+>>> skce = ce.SKCE(ce.tensor(ce.ExponentialKernel(metric=ce.Wasserstein()), ce.SqExponentialKernel()))
 >>> skce(predictions, outcomes)
 0.02203618235964146
 ```
