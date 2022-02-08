@@ -49,15 +49,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install --upgrade tox
-      - name: Install PyCall
-        run: |
-          using Pkg
-          Pkg.add("PyCall")
-        shell: julia --color=yes {0}
-        env:
-          PYTHON: python
       - name: Test with tox
-        run: tox -e py
+        run: python -m tox -- --cov=pycalibration -s
         env:
-          PYTHON: ${{ github.workspace }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
-          PYTHONPATH: ${{ github.workspace }}/.tox/py/lib/site-packages
+          TOXENV: py
+      - name: Upload coverage
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./coverage.xml
+          name: codecov-umbrella
