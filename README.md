@@ -5,6 +5,7 @@ Estimation and hypothesis tests of calibration in Python using CalibrationErrors
 [![Stable](https://img.shields.io/badge/Julia%20docs-stable-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/stable)
 [![Dev](https://img.shields.io/badge/Julia%20docs-dev-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/dev)
 [![Status](https://github.com/devmotion/pycalibration/workflows/CI/badge.svg?branch=main)](https://github.com/devmotion/pycalibration/actions?query=workflow%3ACI+branch%3Amain)
+[![codecov](https://codecov.io/gh/devmotion/pycalibration/branch/main/graph/badge.svg?token=URGY32W5EB)](https://codecov.io/gh/devmotion/pycalibration)
 [![CalibrationAnalysis.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationAnalysis.jl/CI/main?label=CalibrationAnalysis.jl)](https://github.com/devmotion/CalibrationAnalysis.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationErrors.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationErrors.jl/CI/main?label=CalibrationErrors.jl)](https://github.com/devmotion/CalibrationErrors.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationTests.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationTests.jl/CI/main?label=CalibrationTests.jl)](https://github.com/devmotion/CalibrationTests.jl/actions?query=workflow%3ACI+branch%3Amain)
