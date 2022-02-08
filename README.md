@@ -5,11 +5,13 @@ Estimation and hypothesis tests of calibration in Python using CalibrationErrors
 [![Stable](https://img.shields.io/badge/Julia%20docs-stable-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/stable)
 [![Dev](https://img.shields.io/badge/Julia%20docs-dev-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/dev)
 [![Status](https://github.com/devmotion/pycalibration/workflows/CI/badge.svg?branch=main)](https://github.com/devmotion/pycalibration/actions?query=workflow%3ACI+branch%3Amain)
+[![CalibrationAnalysis.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationAnalysis.jl/CI/main?label=CalibrationAnalysis.jl)](https://github.com/devmotion/CalibrationAnalysis.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationErrors.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationErrors.jl/CI/main?label=CalibrationErrors.jl)](https://github.com/devmotion/CalibrationErrors.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationTests.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationTests.jl/CI/main?label=CalibrationTests.jl)](https://github.com/devmotion/CalibrationTests.jl/actions?query=workflow%3ACI+branch%3Amain)
 
 pycalibration is a package for estimating calibration of probabilistic models in Python.
-It uses [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl) and
+It is a Python interface for the [CalibrationAnalysis.jl](https://github.com/devmotion/CalibrationAnalysis.jl).jl]
+suite and uses [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl) and
 [CalibrationTests.jl](https://github.com/devmotion/CalibrationTests.jl) for its
 computations. As such, the package allows the estimation of calibration errors (ECE and
 SKCE) and statistical testing of the null hypothesis that a model is calibrated.
@@ -56,23 +58,15 @@ export JULIA_PROJECT="path/to/the/environment/"
 
 ## Usage
 
-Import and setup
-
-- estimation of calibration errors with
-  ```pycon
-  >>> from pycalibration import calerrors as ce
-  ```
-- statistical hypothesis tests for calibration with
-  ```pycon
-  >>> from pycalibration import caltests as ct
-  ```
+Import and setup calibration analysis tools from CalibrationAnalysis.jl with
+```pycon
+>>> from pycalibration import ca
+```
 
 You can then do the same as would be done in Julia, except you have to add
-`ce.` or `ct.` in front for functionality
-from CalibrationErrors.jl or CalibrationTests.jl, respectively.
-Most of the commands will work without
-any modification. Thus the documentation of the Julia packages are the main
-in-depth documentation for this package.
+`ca.` in front for functionality from CalibrationAnalysis.jl.
+Most of the commands will work without any modification. Thus the documentation
+of the Julia package is the main in-depth documentation for this package.
 
 ### Valid identifiers
 
@@ -92,8 +86,7 @@ k((p, y), (p̃, ỹ)) = exp(-|p - p̃|) δ(y - ỹ)
 from a set of predictions and corresponding observed outcomes.
 
 ```pycon
->>> from pycalibration import calerrors as ce
->>> skce = ce.SKCE(ce.tensor(ce.ExponentialKernel(), ce.WhiteKernel()))
+>>> skce = ca.SKCE(ca.tensor(ca.ExponentialKernel(), ca.WhiteKernel()))
 ```
 
 Other estimators of the SKCE and estimators of other calibration errors such
@@ -146,7 +139,7 @@ distributions with these class probabilities and the targets are integers in `{1
 
 Sequences of probability vectors can also be provided as NumPy matrices. However, it is
 required to specify if the probability vectors correspond to rows or columns of the matrix
-by wrapping them in `ce.RowVecs` and `ce.ColVecs`, respectively. These wrappers are defined
+by wrapping them in `ca.RowVecs` and `ca.ColVecs`, respectively. These wrappers are defined
 in [KernelFunctions.jl](https://github.com/JuliaGaussianProcesses/KernelFunctions.jl).
 
 ```pycon
@@ -154,7 +147,7 @@ in [KernelFunctions.jl](https://github.com/JuliaGaussianProcesses/KernelFunction
 >>> rng = np.random.default_rng(1234)
 >>> predictions = rng.dirichlet((3, 2, 5), 100)
 >>> outcomes = rng.integers(low=1, high=4, size=100)
->>> skce(ce.RowVecs(predictions), outcomes)
+>>> skce(ca.RowVecs(predictions), outcomes)
 0.02015240706950358
 ```
 
@@ -164,7 +157,7 @@ to matrices automatically.
 ```pycon
 >>> predictions = [[0.1, 0.8, 0.1], [0.2, 0.5, 0.3]]
 >>> outcomes = [2, 3]
->>> skce(ce.RowVecs(predictions), outcomes)
+>>> skce(ca.RowVecs(predictions), outcomes)
 -0.10317943453412069
 ```
 
@@ -173,9 +166,9 @@ to matrices automatically.
 Predictions can also be provided as sequences of probability distributions defined in the
 Julia package [Distributions.jl](https://github.com/JuliaStats/Distributions.jl). Currently,
 analytical formulas for the estimators of the SKCE and unnormalized calibration mean embedding
-(UCME) are implemented for uni- and multivariate normal distributions `ce.Normal` and
-`ce.MvNormal` with squared exponential kernels on the target space and Laplace distributions
-`ce.Laplace` with exponential kernels on the target space.
+(UCME) are implemented for uni- and multivariate normal distributions `ca.Normal` and
+`ca.MvNormal` with squared exponential kernels on the target space and Laplace distributions
+`ca.Laplace` with exponential kernels on the target spaca.
 
 In this example we use the tensor product kernel
 ```math
@@ -191,9 +184,9 @@ where `p = N(μ, σ)` and `p̃ = N(μ̃, σ̃)`.
 ```pycon
 >>> import random
 >>> random.seed(1234)
->>> predictions = [ce.Normal(random.gauss(0, 1), random.random()) for _ in range(100)]
+>>> predictions = [ca.Normal(random.gauss(0, 1), random.random()) for _ in range(100)]
 >>> outcomes = [random.gauss(0, 1) for _ in range(100)]
->>> skce = ce.SKCE(ce.tensor(ce.ExponentialKernel(metric=ce.Wasserstein()), ce.SqExponentialKernel()))
+>>> skce = ca.SKCE(ca.tensor(ca.ExponentialKernel(metric=ca.Wasserstein()), ca.SqExponentialKernel()))
 >>> skce(predictions, outcomes)
 0.02203618235964146
 ```
@@ -202,11 +195,11 @@ where `p = N(μ, σ)` and `p̃ = N(μ̃, σ̃)`.
 
 `pycalibration` provides different calibration tests that estimate the p-value of the null hypothesis
 that a model is calibrated, based on a set of predictions and outcomes:
-- `ct.ConsistencyTest` estimates the p-value with consistency resampling for a given calibration error estimator
-- `ct.DistributionFreeSKCETest` computes distribution-free (and therefore usually quite weak) upper bounds of the p-value for different estimators of the SKCE
-- `ct.AsymptoticBlockSKCETest` estimates the p-value based on the asymptotic distribution of the unbiased block estimator of the SKCE
-- `ct.AsymptoticSKCETest` estimates the p-value based on the asymptotic distribution of the unbiased estimator of the SKCE
-- `ct.AsymptoticCMETest` estimates the p-value based on the asymptotic distribution of the UCME
+- `ca.ConsistencyTest` estimates the p-value with consistency resampling for a given calibration error estimator
+- `ca.DistributionFreeSKCETest` computes distribution-free (and therefore usually quite weak) upper bounds of the p-value for different estimators of the SKCE
+- `ca.AsymptoticBlockSKCETest` estimates the p-value based on the asymptotic distribution of the unbiased block estimator of the SKCE
+- `ca.AsymptoticSKCETest` estimates the p-value based on the asymptotic distribution of the unbiased estimator of the SKCE
+- `ca.AsymptoticCMETest` estimates the p-value based on the asymptotic distribution of the UCME
 
 ```pycon
 >>> from pycalibration import caltests as ct
@@ -214,8 +207,8 @@ that a model is calibrated, based on a set of predictions and outcomes:
 >>> rng = np.random.default_rng(1234)
 >>> predictions = rng.dirichlet((3, 2, 5), 100)
 >>> outcomes = rng.integers(low=1, high=4, size=100)
->>> kernel = ct.tensor(ct.ExponentialKernel(metric=ct.TotalVariation()), ct.WhiteKernel())
->>> test = ct.AsymptoticSKCETest(kernel, predictions, outcomes)
+>>> kernel = ca.tensor(ca.ExponentialKernel(metric=ca.TotalVariation()), ca.WhiteKernel())
+>>> test = ca.AsymptoticSKCETest(kernel, predictions, outcomes)
 >>> print(test)
 <PyCall.jlwrap Asymptotic SKCE test
 --------------------
@@ -230,7 +223,7 @@ Test summary:
 
 Details:
     test statistic: -4.955380469272125
->>> ct.pvalue(test)
+>>> ca.pvalue(test)
 0.435
 ```
 
