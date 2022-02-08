@@ -53,11 +53,9 @@ jobs:
         run: |
           using Pkg
           Pkg.add("PyCall")
-          Pkg.build("PyCall")
         shell: julia --color=yes {0}
         env:
-          PYTHON: ${{ github.workspace }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
-          PYTHONPATH: ${{ github.workspace }}/.tox/py/lib/site-packages
+          PYTHON: python
       - name: Test with tox
         run: tox -e py
         env:
