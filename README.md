@@ -5,6 +5,7 @@ Estimation and hypothesis tests of calibration in Python using CalibrationErrors
 [![Stable](https://img.shields.io/badge/Julia%20docs-stable-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/stable)
 [![Dev](https://img.shields.io/badge/Julia%20docs-dev-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/dev)
 [![Status](https://github.com/devmotion/pycalibration/workflows/CI/badge.svg?branch=main)](https://github.com/devmotion/pycalibration/actions?query=workflow%3ACI+branch%3Amain)
+[![codecov](https://codecov.io/gh/devmotion/pycalibration/branch/main/graph/badge.svg?token=URGY32W5EB)](https://codecov.io/gh/devmotion/pycalibration)
 [![CalibrationAnalysis.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationAnalysis.jl/CI/main?label=CalibrationAnalysis.jl)](https://github.com/devmotion/CalibrationAnalysis.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationErrors.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationErrors.jl/CI/main?label=CalibrationErrors.jl)](https://github.com/devmotion/CalibrationErrors.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationTests.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationTests.jl/CI/main?label=CalibrationTests.jl)](https://github.com/devmotion/CalibrationTests.jl/actions?query=workflow%3ACI+branch%3Amain)
@@ -227,10 +228,9 @@ Details:
 0.435
 ```
 
-## References
+## Citing
 
-If you use pycalibration as part of your research, teaching, or other activities,
-please consider citing the following publications:
+If you use pycalibration as part of your research, teaching, or other activities, please consider citing the following publications:
 
 Widmann, D., Lindsten, F., & Zachariah, D. (2019). [Calibration tests in multi-class
 classification: A unifying framework](https://proceedings.neurips.cc/paper/2019/hash/1c336b8080f82bcc2cd2499b4c57261d-Abstract.html). In
@@ -238,4 +238,8 @@ classification: A unifying framework](https://proceedings.neurips.cc/paper/2019/
 
 Widmann, D., Lindsten, F., & Zachariah, D. (2021).
 [Calibration tests beyond classification](https://openreview.net/forum?id=-bxf89v3Nx).
-To be presented at *ICLR 2021*.
+*International Conference on Learning Representations (ICLR 2021)*.
+
+## Acknowledgements
+
+This work was financially supported by the Swedish Research Council via the projects *Learning of Large-Scale Probabilistic Dynamical Models* (contract number: 2016-04278), *Counterfactual Prediction Methods for Heterogeneous Populations* (contract number: 2018-05040), and *Handling Uncertainty in Machine Learning Systems* (contract number: 2020-04122), by the Swedish Foundation for Strategic Research via the project *Probabilistic Modeling and Inference for Machine Learning* (contract number: ICA16-0015), by the Wallenberg AI, Autonomous Systems and Software Program (WASP) funded by the Knut and Alice Wallenberg Foundation, and by ELLIIT.
