@@ -51,13 +51,6 @@ jobs:
       - uses: julia-actions/cache@v1
         with:
           cache-packages: 'false'
-      - name: Install PyCall
-        run: |
-          using Pkg
-          Pkg.add("PyCall")
-        shell: julia --color=yes {0}
-        env:
-          PYTHON: ${{ github.workspace }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
       - name: Test with tox
         run: python -m tox -- --cov=pycalibration -s
         env:
