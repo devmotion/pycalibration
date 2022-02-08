@@ -49,6 +49,8 @@ jobs:
           version: ${{ matrix.julia-version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
+        with:
+          cache-packages: 'false'
       - name: Install PyCall
         run: julia -e 'using Pkg; Pkg.add("PyCall")'
         env:
