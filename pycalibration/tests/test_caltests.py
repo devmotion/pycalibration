@@ -1,6 +1,6 @@
 import numpy as np
 
-from .. import caltests as ct
+from .. import ca
 
 
 def test_consistency():
@@ -9,19 +9,19 @@ def test_consistency():
     targets_consistent = 2 - (rng.random(500) < predictions[:, 0])
     targets_onlytwo = np.full(500, 2)
 
-    kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
-                                  ct.ScaleTransform(3)), ct.WhiteKernel())
-    estimators = [ct.SKCE(kernel), ct.SKCE(kernel, unbiased=False)]
+    kernel = ca.tensor(ca.compose(ca.ExponentialKernel(),
+                                  ca.ScaleTransform(3)), ca.WhiteKernel())
+    estimators = [ca.SKCE(kernel), ca.SKCE(kernel, unbiased=False)]
 
     for estimator in estimators:
-        test = ct.ConsistencyTest(estimator, ct.RowVecs(
+        test = ca.ConsistencyTest(estimator, ca.RowVecs(
             predictions), targets_consistent)
-        assert ct.pvalue(test) > 0.7
+        assert ca.pvalue(test) > 0.7
         print(test)
 
-        test = ct.ConsistencyTest(
-            estimator, ct.RowVecs(predictions), targets_onlytwo)
-        assert ct.pvalue(test) < 1e-6
+        test = ca.ConsistencyTest(
+            estimator, ca.RowVecs(predictions), targets_onlytwo)
+        assert ca.pvalue(test) < 1e-6
         print(test)
 
 
@@ -31,23 +31,23 @@ def test_distributionfree():
     targets_consistent = 2 - (rng.random(500) < predictions[:, 0])
     targets_onlytwo = np.full(500, 2)
 
-    kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
-                                  ct.ScaleTransform(3)), ct.WhiteKernel())
-    estimators = [ct.SKCE(kernel, unbiased=False), ct.SKCE(
-        kernel), ct.SKCE(kernel, blocksize=2)]
+    kernel = ca.tensor(ca.compose(ca.ExponentialKernel(),
+                                  ca.ScaleTransform(3)), ca.WhiteKernel())
+    estimators = [ca.SKCE(kernel, unbiased=False), ca.SKCE(
+        kernel), ca.SKCE(kernel, blocksize=2)]
 
     for i, estimator in enumerate(estimators):
-        test = ct.DistributionFreeSKCETest(estimator, ct.RowVecs(
+        test = ca.DistributionFreeSKCETest(estimator, ca.RowVecs(
             predictions), targets_consistent)
-        assert ct.pvalue(test) > 0.7
+        assert ca.pvalue(test) > 0.7
         print(test)
 
-        test = ct.DistributionFreeSKCETest(
-            estimator, ct.RowVecs(predictions), targets_onlytwo)
+        test = ca.DistributionFreeSKCETest(
+            estimator, ca.RowVecs(predictions), targets_onlytwo)
         if i == 0:
-            assert ct.pvalue(test) < 1e-6
+            assert ca.pvalue(test) < 1e-6
         else:
-            assert ct.pvalue(test) < 0.4
+            assert ca.pvalue(test) < 0.4
         print(test)
 
 
@@ -57,18 +57,18 @@ def test_asymptoticblockskce():
     targets_consistent = 2 - (rng.random(500) < predictions[:, 0])
     targets_onlytwo = np.full(500, 2)
 
-    kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
-                                  ct.ScaleTransform(3)), ct.WhiteKernel())
+    kernel = ca.tensor(ca.compose(ca.ExponentialKernel(),
+                                  ca.ScaleTransform(3)), ca.WhiteKernel())
 
     for blocksize in (2, 10):
-        test = ct.AsymptoticBlockSKCETest(kernel, blocksize, ct.RowVecs(
+        test = ca.AsymptoticBlockSKCETest(kernel, blocksize, ca.RowVecs(
             predictions), targets_consistent)
-        assert ct.pvalue(test) > 0.7
+        assert ca.pvalue(test) > 0.7
         print(test)
 
-        test = ct.AsymptoticBlockSKCETest(
-            kernel, blocksize, ct.RowVecs(predictions), targets_onlytwo)
-        assert ct.pvalue(test) < 1e-6
+        test = ca.AsymptoticBlockSKCETest(
+            kernel, blocksize, ca.RowVecs(predictions), targets_onlytwo)
+        assert ca.pvalue(test) < 1e-6
         print(test)
 
 
@@ -78,17 +78,17 @@ def test_asymptoticskce():
     targets_consistent = 2 - (rng.random(500) < predictions[:, 0])
     targets_onlytwo = np.full(500, 2)
 
-    kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
-                                  ct.ScaleTransform(3)), ct.WhiteKernel())
+    kernel = ca.tensor(ca.compose(ca.ExponentialKernel(),
+                                  ca.ScaleTransform(3)), ca.WhiteKernel())
 
-    test = ct.AsymptoticSKCETest(
-        kernel, ct.RowVecs(predictions), targets_consistent)
-    assert ct.pvalue(test) > 0.7
+    test = ca.AsymptoticSKCETest(
+        kernel, ca.RowVecs(predictions), targets_consistent)
+    assert ca.pvalue(test) > 0.7
     print(test)
 
-    test = ct.AsymptoticSKCETest(
-        kernel, ct.RowVecs(predictions), targets_onlytwo)
-    assert ct.pvalue(test) < 1e-6
+    test = ca.AsymptoticSKCETest(
+        kernel, ca.RowVecs(predictions), targets_onlytwo)
+    assert ca.pvalue(test) < 1e-6
     print(test)
 
 
@@ -101,16 +101,16 @@ def test_asymptoticcme():
     testpredictions = rng.dirichlet((1, 1), 5)
     testtargets = rng.integers(low=1, high=3, size=5)
 
-    kernel = ct.tensor(ct.compose(ct.ExponentialKernel(),
-                                  ct.ScaleTransform(3)), ct.WhiteKernel())
-    estimator = ct.UCME(kernel, ct.RowVecs(testpredictions), testtargets)
+    kernel = ca.tensor(ca.compose(ca.ExponentialKernel(),
+                                  ca.ScaleTransform(3)), ca.WhiteKernel())
+    estimator = ca.UCME(kernel, ca.RowVecs(testpredictions), testtargets)
 
-    test = ct.AsymptoticCMETest(
-        estimator, ct.RowVecs(predictions), targets_consistent)
-    assert ct.pvalue(test) > 0.7
+    test = ca.AsymptoticCMETest(
+        estimator, ca.RowVecs(predictions), targets_consistent)
+    assert ca.pvalue(test) > 0.7
     print(test)
 
-    test = ct.AsymptoticCMETest(
-        estimator, ct.RowVecs(predictions), targets_onlytwo)
-    assert ct.pvalue(test) < 1e-6
+    test = ca.AsymptoticCMETest(
+        estimator, ca.RowVecs(predictions), targets_onlytwo)
+    assert ca.pvalue(test) < 1e-6
     print(test)

@@ -1,4 +1,4 @@
-using CalibrationErrors: ColVecs, RowVecs
+using CalibrationAnalysis: ColVecs, RowVecs
 using PyCall: PyCall
 
 # use Julia wrapper for ColVecs and RowVecs in Python
