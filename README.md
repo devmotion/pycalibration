@@ -29,7 +29,7 @@ The use of `pycalibration` requires that its dependency
 and itself are configured correctly.
 
 For `pyjulia`, you have to
-[install Julia](https://pyjulia.readthedocs.io/en/latest/installation.html#step-1-install-julia)
+[install Julia](https://pyjulia.readthedocs.io/en/latest/installation.html#step-1-install-julia) (at least version 1.6 is required)
 and the
 [Julia dependencies of `pyjulia`](https://pyjulia.readthedocs.io/en/latest/installation.html#step-3-install-julia-packages-required-by-pyjulia).
 The configuration process is described in detail in the
