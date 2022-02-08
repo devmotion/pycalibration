@@ -52,7 +52,10 @@ jobs:
         with:
           cache-packages: 'false'
       - name: Install PyCall
-        run: julia -e 'using Pkg; Pkg.add("PyCall")'
+        run: |
+          using Pkg
+          Pkg.add("PyCall")
+        shell: julia --color=yes {0}
         env:
           PYTHON: 'python'
       - name: Test with tox
