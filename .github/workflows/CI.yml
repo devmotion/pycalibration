@@ -57,12 +57,12 @@ jobs:
           Pkg.add("PyCall")
         shell: julia --color=yes {0}
         env:
-          PYTHON: 'python'
+          PYTHON: ${{ github.workspace }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
       - name: Test with tox
         run: python -m tox -- --cov=pycalibration -s
         env:
           TOXENV: py
-          PYTHON: 'python'
+          PYTHON: ${{ github.workspace }}/.tox/py/${{ fromJSON('["bin/python", "scripts/python.exe"]')[matrix.os == 'windows-latest'] }}
       - name: Upload coverage
         uses: codecov/codecov-action@v2
         with:
