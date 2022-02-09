@@ -11,7 +11,7 @@ Estimation and hypothesis tests of calibration in Python using CalibrationErrors
 [![CalibrationTests.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationTests.jl/CI/main?label=CalibrationTests.jl)](https://github.com/devmotion/CalibrationTests.jl/actions?query=workflow%3ACI+branch%3Amain)
 
 pycalibration is a package for estimating calibration of probabilistic models in Python.
-It is a Python interface for the [CalibrationAnalysis.jl](https://github.com/devmotion/CalibrationAnalysis.jl).jl]
+It is a Python interface for the [CalibrationAnalysis.jl](https://github.com/devmotion/CalibrationAnalysis.jl)
 suite and uses [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl) and
 [CalibrationTests.jl](https://github.com/devmotion/CalibrationTests.jl) for its
 computations. As such, the package allows the estimation of calibration errors (ECE and
