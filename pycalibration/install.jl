@@ -1,9 +1,12 @@
 using Pkg: Pkg
 
-Pkg.add(
+Pkg.add([
     Pkg.PackageSpec(;
-        name="CalibrationAnalysis",
-        uuid="f96f8458-5c05-4a28-b3fd-d398aeb95222",
-        version="0.1",
-    )
-)
+        name="CalibrationErrors",
+        uuid="33913031-fe46-5864-950f-100836f47845",
+        version="0.6",
+    ),
+    Pkg.PackageSpec(;
+        name="CalibrationTests", uuid="2818745e-0823-50c7-bc2d-405ac343d48b", version="0.6"
+    ),
+])
