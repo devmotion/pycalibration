@@ -6,16 +6,12 @@ Estimation and hypothesis tests of calibration in Python using CalibrationErrors
 [![Dev](https://img.shields.io/badge/Julia%20docs-dev-blue.svg)](https://devmotion.github.io/CalibrationErrors.jl/dev)
 [![Status](https://github.com/devmotion/pycalibration/workflows/CI/badge.svg?branch=main)](https://github.com/devmotion/pycalibration/actions?query=workflow%3ACI+branch%3Amain)
 [![codecov](https://codecov.io/gh/devmotion/pycalibration/branch/main/graph/badge.svg?token=URGY32W5EB)](https://codecov.io/gh/devmotion/pycalibration)
-[![CalibrationAnalysis.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationAnalysis.jl/CI/main?label=CalibrationAnalysis.jl)](https://github.com/devmotion/CalibrationAnalysis.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationErrors.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationErrors.jl/CI/main?label=CalibrationErrors.jl)](https://github.com/devmotion/CalibrationErrors.jl/actions?query=workflow%3ACI+branch%3Amain)
 [![CalibrationTests.jl Status](https://img.shields.io/github/workflow/status/devmotion/CalibrationTests.jl/CI/main?label=CalibrationTests.jl)](https://github.com/devmotion/CalibrationTests.jl/actions?query=workflow%3ACI+branch%3Amain)
 
 pycalibration is a package for estimating calibration of probabilistic models in Python.
-It is a Python interface for the [CalibrationAnalysis.jl](https://github.com/devmotion/CalibrationAnalysis.jl)
-suite and uses [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl) and
-[CalibrationTests.jl](https://github.com/devmotion/CalibrationTests.jl) for its
-computations. As such, the package allows the estimation of calibration errors (ECE and
-SKCE) and statistical testing of the null hypothesis that a model is calibrated.
+It is a Python interface for [CalibrationErrors.jl](https://github.com/devmotion/CalibrationErrors.jl) and [CalibrationTests.jl](https://github.com/devmotion/CalibrationTests.jl).
+As such, the package allows the estimation of calibration errors (ECE and SKCE) and statistical testing of the null hypothesis that a model is calibrated.
 
 ## Installation
 
@@ -59,15 +55,14 @@ export JULIA_PROJECT="path/to/the/environment/"
 
 ## Usage
 
-Import and setup calibration analysis tools from CalibrationAnalysis.jl with
+Import and setup calibration analysis tools from CalibrationErrors.jl and CalibrationTests.jl with
 ```pycon
 >>> from pycalibration import ca
 ```
 
-You can then do the same as would be done in Julia, except you have to add
-`ca.` in front for functionality from CalibrationAnalysis.jl.
-Most of the commands will work without any modification. Thus the documentation
-of the Julia package is the main in-depth documentation for this package.
+You can then do the same as would be done in Julia, except you have to add `ca.` in front for functionality from the Julia packages.
+Most of the commands will work without any modification.
+Thus the documentation of the Julia packages is the main in-depth documentation for this package.
 
 ### Valid identifiers
 
