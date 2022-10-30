@@ -198,7 +198,6 @@ that a model is calibrated, based on a set of predictions and outcomes:
 - `ca.AsymptoticCMETest` estimates the p-value based on the asymptotic distribution of the UCME
 
 ```pycon
->>> from pycalibration import caltests as ct
 >>> import numpy as np
 >>> rng = np.random.default_rng(1234)
 >>> predictions = rng.dirichlet((3, 2, 5), 100)
